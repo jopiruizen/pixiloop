@@ -1,5 +1,5 @@
 const Routes = {
-    EXMAPLES: '/',
+    GAME: '/',
 }
 
 export default Routes;
