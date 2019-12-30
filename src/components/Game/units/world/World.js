@@ -1,12 +1,22 @@
 import * as PIXI from 'pixi.js';
-import { registerDisplayAndState } from '../../pixiloop/';
+import { registerDisplayAndState, unregisterDisplayAndState } from '../../../../pixiloop';
 
+const WORLD_NAMESPACE = 'world';
 class World extends PIXI.Container {
+    constructor() {
+        super();
+        registerDisplayAndState(WORLD_NAMESPACE, this );
+    }
+    
+    destroy(options){
+        unregisterDisplayAndState(WORLD_NAMESPACE);
+        super.destroy(options);
+    }
 
-    init(){
+    update(state){
 
     }
 
 }
 
-export default World;
+export default new World();
