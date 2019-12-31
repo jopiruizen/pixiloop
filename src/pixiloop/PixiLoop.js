@@ -30,11 +30,22 @@ class PixiLoop {
                 this.makeDispatch(key,models[key].dispatch);
             }
             if( models[key].mechanics) this.mechanics[key] = models[key].mechanics;
+            if( models[key].state) this.state[key] = models[keys].state;
         }
     }
 
-    runSetup(){
-    
+    setupGame(){
+        console.log("pixiloop");
+        console.log("Setup Games");
+        const keys = Object.keys(this.displays);
+        for(let key of keys) {
+            const display = this.displays[key];
+            if (display.setup && 
+                typeof display.setup === 'function' 
+                && this.state[key]) {
+                display.setup(this.state[key]);
+            }
+        }
     }
 
     makeDispatch(context,dispatch) {
@@ -48,7 +59,6 @@ class PixiLoop {
         }
        
     }
-
 
     tagChanges(changes) {
         for( let changedState of changes) {

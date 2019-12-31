@@ -1,6 +1,13 @@
 const scrollLeft = {
-    mechanicsFunction: (state, params) => {
+    mechanicsFunction: (state) => {
 
+    },
+    modes: ['playAdventure'],
+};
+
+const mechanics1 = {
+    mechanicsFunction: (state) => {
+        return { state, }
     },
     modes: [],
 };
