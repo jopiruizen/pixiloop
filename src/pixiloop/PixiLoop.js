@@ -30,7 +30,7 @@ class PixiLoop {
                 this.makeDispatch(key,models[key].dispatch);
             }
             if( models[key].mechanics) this.mechanics[key] = models[key].mechanics;
-            if( models[key].state) this.state[key] = models[keys].state;
+            if( models[key].state) this.state[key] = models[key].state;
         }
     }
 
@@ -74,6 +74,8 @@ class PixiLoop {
         }
         if (!this.loopStarted){
             ticker.add(gameLoop);
+            ticker.start();
+            this.loopStarted = true;
         }
     }
 
@@ -106,7 +108,7 @@ class PixiLoop {
         for( let key of keys) {
             let display = this.displays[key];
             if( this.stateChanges[key] && display && display.update ) {
-                display.update( { fullState: this.states, state: this.states[key], key: key });
+                display.update( { fullState: this.state, state: this.state[key], key: key });
             }
             this.stateChanges[key] = false;
         }
@@ -126,6 +128,10 @@ export function registerDispatch(name, func) {
 
 export function useDispatch() {
   return pixiloop.dispatch;
+}
+
+export function useGlobalState() {
+    return pixiloop.state;
 }
 
 export function registerDisplayAndState( name, display, initialState = null) {

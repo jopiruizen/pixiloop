@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { registerDisplayAndState, unregisterDisplayAndState } from '../../../../pixiloop';
 import RoadBlock from './RoadBlock';
+import Textures from '../../textures';
 
 const WORLD_NAMESPACE = 'world';
 class World extends PIXI.Container {
@@ -14,8 +15,8 @@ class World extends PIXI.Container {
         super.destroy(options);
     }
 
-    update(state){
-        this.state = state;
+    update({fullState, state, key}) {
+
     }
 
     setup(state) {
@@ -33,20 +34,21 @@ class World extends PIXI.Container {
         this.roadBlocks.height = this.height;
         for ( let i = 0; i < map.length; i++ ) {
             for (let j = 0; j < map[i].length; j++) {
-                let hasBlock = map[i][j];
-                if (hasBlock) this.renderBlock(j,i);
+                let isBlock = map[i][j];
+                this.renderBlockOrTitle(j,i, isBlock);
             }
         }
         console.log("ROadBlocks...", this.roadBlocks);
-        this.addChild(this.roadBlocks);
+        this.addChildAt(this.roadBlocks,0);
     }
 
-    renderBlock(x,y){
-       
+    renderBlockOrTitle(x,y, isBlock){
         let blockSize = 50;
         if(this.state.blockSize) blockSize = this.state.blockSize;
-        const block = new RoadBlock();
-                
+        let block = new PIXI.Sprite(Textures.TILE);
+        if( isBlock ) {
+            block = new RoadBlock();
+        }
         block.width = this.blockSize;
         block.height = this.blockSize;
         block.x = x * blockSize;
@@ -55,7 +57,7 @@ class World extends PIXI.Container {
         block.height = blockSize;
         this.roadBlocks.addChild(block);
     }
-
+    
 }
 
 export default World;
