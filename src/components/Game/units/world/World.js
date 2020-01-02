@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { registerDisplayAndState, unregisterDisplayAndState } from '../../../../pixiloop';
+import { registerDisplayAndState, unregisterDisplayAndState, useDispatch } from '../../../../pixiloop';
 import RoadBlock from './RoadBlock';
 import Textures from '../../textures';
 
@@ -16,7 +16,8 @@ class World extends PIXI.Container {
     }
 
     update({fullState, state, key}) {
-
+        this.state = state;
+        this.showPelette();
     }
 
     setup(state) {
@@ -58,6 +59,20 @@ class World extends PIXI.Container {
         this.roadBlocks.addChild(block);
     }
     
+    showPelette(){
+        if(!this.state.peletteShown) {
+            if (!this.pelette) {
+                this.pelette = new PIXI.Sprite(Textures.ROADBLOCK);
+                this.pelette.width = this.state.blockSize;
+                this.pelette.height = this.state.blockSize;
+                this.addChildAt(this.pelette,1);
+            }
+            this.pelette.x = this.state.blockSize * this.state.peletteX;
+            this.pelette.y = this.state.blockSize * this.state.peletteY;
+            const { world: { peletteIsShown }} = useDispatch();
+            peletteIsShown({peletteShown: true});
+        }
+    }
 }
 
 export default World;

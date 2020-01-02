@@ -15,3 +15,8 @@ export const Speed = {
     FAST: 2,
     INSANE: 1,
 };
+
+
+export function randomRange (min, max) {
+    return Math.floor( Math.random() * (max - min)) + min; 
+}

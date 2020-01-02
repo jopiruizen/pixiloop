@@ -130,7 +130,7 @@ export function useDispatch() {
   return pixiloop.dispatch;
 }
 
-export function useGlobalState() {
+export function getGameState() {
     return pixiloop.state;
 }
 

@@ -6,4 +6,5 @@ export {
     useDispatch,
     registerDisplayAndState,
     unregisterDisplayAndState,
+    getGameState,
 } from './PixiLoop';

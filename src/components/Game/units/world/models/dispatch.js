@@ -1,18 +1,12 @@
-function change(state, worldTile) {
-
+function peletteIsShown(state, {peletteShown = true}) {
+    state.world.peletteShown = peletteShown;
 }
 
-
-function dispatch2 (state, params) {
-    return state;
-}
-
-function dispatch3 (state, params) {
-    return state;
+function peletteIsEaten(state, { isEaten = false}) {
+    state.world.hasPelette = isEaten;
 }
 
 export default {
-    change,
-    dispatch2,
-    dispatch3,
+    peletteIsShown,
+    peletteIsEaten,
 }

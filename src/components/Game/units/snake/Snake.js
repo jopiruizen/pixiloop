@@ -43,7 +43,6 @@ class Snake extends PIXI.Container {
                 this.nodes[i] = new SnakeNode();
                 this.nodes[i].mask = this.nodeMask;
                 this.addChild(this.nodes[i]);
-                
             }
             this.renderNode(this.nodes[i], nodes[i]);
         }
