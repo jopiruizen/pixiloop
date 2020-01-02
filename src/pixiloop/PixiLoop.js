@@ -96,8 +96,10 @@ class PixiLoop {
                         state,
                         changes,
                     } = func( {state: this.state, key: key} );
-                    this.state = state;
-                    this.tagChanges(changes);
+                    if (changes.length > 0) {
+                        this.state = state;
+                        this.tagChanges(changes);
+                    }  
                 }
             }
         }

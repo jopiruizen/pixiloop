@@ -11,19 +11,20 @@ const popPelette =  {
     
     mechanicsFunction: ( { state, key} ) => {
         const wolrdState = state[key];
-        
+
         if (wolrdState.hasPelette === false) {
             let point = peletteXY(wolrdState);
             wolrdState.peletteX = point.x;
             wolrdState.peletteY = point.y;
             wolrdState.hasPelette = true;
             wolrdState.peletteShown = false;
+            return { 
+                state: { ...state, [key]: { ...wolrdState } },
+                changes: [key],
+            };
         }
         
-        return { 
-            state: { ...state, [key]: { ...wolrdState } },
-            changes: [key],
-        };
+        return { changes:[]};
     },
     modes: [Modes.PLAY],
 }
