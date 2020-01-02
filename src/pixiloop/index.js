@@ -7,4 +7,5 @@ export {
     registerDisplayAndState,
     unregisterDisplayAndState,
     getGameState,
+    getDispatch,
 } from './PixiLoop';

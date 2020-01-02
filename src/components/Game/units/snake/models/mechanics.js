@@ -1,6 +1,6 @@
 import { Modes, Directions} from '../../../constants';
 
-import { getGameState } from '../../../../../pixiloop';
+import { getGameState, getDispatch } from '../../../../../pixiloop';
 
 function hadFinishedAFullStep(state){
      if( state.x % 50 === 0 && state.y % 50 === 0) {
@@ -39,6 +39,16 @@ function nodeOffScreen(state,node) {
     }
 }
 
+function eatPelette(node) {
+    const peletteIsEaten = getDispatch().world.peletteIsEaten;
+    const worldState = getGameState().world;
+    if (node.mapPositionX === worldState.peletteX && 
+        node.mapPositionY === worldState.peletteY) {
+        peletteIsEaten({hasPelette: false});
+        return true;
+    }
+    return false;
+}
 
 function updateNode(state, node){
     if (node.direction === Directions.UP ) {
@@ -53,6 +63,7 @@ function updateNode(state, node){
 }
 
 function updateNodes(state) {
+    let shouldAddTail = false;
     for( var i = 0; i < state.nodes.length; i++) {
         const node = state.nodes[i];
         updateNode(state, node);
@@ -61,12 +72,33 @@ function updateNodes(state) {
             updateMapPosition(state, node);
             node.oldDirection = node.direction;
             if (i === 0) {
+                shouldAddTail = eatPelette(node);
                 node.direction = node.nextDirection;
             } else {
                 node.direction = state.nodes[i-1].oldDirection;
             }
         }
     }
+    if (shouldAddTail) addTail(state);
+}  
+
+function addTail(state){
+    const last = state.nodes[state.nodes.length-1];
+    const tail = { ...last };
+    if ( last.direction === Directions.UP) {
+        tail.mapPositionY += 1;
+        tail.y += state.nodeSize;
+    } else if (last.direction === Directions.DOWN) {
+        tail.mapPositionY -= 1;
+        tail.y -= state.nodeSize;
+    } else if ( last.direction === Directions.LEFT) {
+        tail.mapPositionX += 1;
+        tail.x += state.nodeSize;
+    } else if (last.direction === Directions.RIGHT) {
+        tail.mapPositionX -= 1;
+        tail.x -= state.nodeSize;
+    }
+    state.nodes.push(tail);
 }
 
 function snakeMove(state) {

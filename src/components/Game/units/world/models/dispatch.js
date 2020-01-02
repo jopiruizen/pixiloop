@@ -2,8 +2,8 @@ function peletteIsShown(state, {peletteShown = true}) {
     state.world.peletteShown = peletteShown;
 }
 
-function peletteIsEaten(state, { isEaten = false}) {
-    state.world.hasPelette = isEaten;
+function peletteIsEaten(state, { hasPelette = false}) {
+    state.world.hasPelette = hasPelette;
 }
 
 export default {

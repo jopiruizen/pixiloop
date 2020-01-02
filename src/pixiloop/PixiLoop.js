@@ -126,10 +126,14 @@ export function changeMode(mode) {
 
 export function registerDispatch(name, func) {
     pixiloop.dispatch[name] = (params) => (func(pixiloop.state, params));
-};
+}
 
 export function useDispatch() {
   return pixiloop.dispatch;
+}
+
+export function getDispatch() {
+    return pixiloop.dispatch;
 }
 
 export function getGameState() {

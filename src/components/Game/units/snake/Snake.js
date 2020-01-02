@@ -33,7 +33,6 @@ class Snake extends PIXI.Container {
     update({state}) {
         this.state = state;
         this.renderNodes();
-
     }
 
     renderNodes(){
@@ -53,7 +52,6 @@ class Snake extends PIXI.Container {
         snakeNode.height = this.state.nodeSize;
         snakeNode.x = node.x;
         snakeNode.y = node.y;
-
     }
 
 }
