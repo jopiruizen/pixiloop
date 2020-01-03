@@ -10,6 +10,10 @@ export const PixiLoopMode = {
 class PixiLoop {
 
     constructor() {
+        this.reset();
+    }
+
+    reset() {
         this.mode = PixiLoopMode.DEFAULT;
         this.loopStarted = false;
         this.setupFunc = null;
@@ -21,6 +25,7 @@ class PixiLoop {
     }
 
     init( {pixiSettings, models}) {
+        this.reset();
         this.app = new PIXI.Application(pixiSettings);
         const keys = Object.keys(models);
         for ( let key of keys) {
