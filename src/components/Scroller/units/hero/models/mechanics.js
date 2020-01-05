@@ -1,13 +1,18 @@
 import { Modes, Directions} from '../../../constants';
 
-import { getGameState, getDispatch } from '../../../../../pixiloop';
-
+import { heroOnMotion } from './utility/movement';
 
 const heroMove = {
     mechanicsFunction: ({state, key}) => {
 
+        let hero = state[key];
+        let platform = state.platform;
+        let keyPress = state.keyPress;
+        heroOnMotion( {hero, platform, keyPress} );
+
         return {
-            changes: [],
+            state,
+            changes: [key],
         };
     },
     modes: [ Modes.PLAY ],

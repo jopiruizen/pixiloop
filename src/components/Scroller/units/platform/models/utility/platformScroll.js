@@ -1,4 +1,4 @@
-import { Directions } from '../../../../constants';
+import { Directions , PlatformEdge } from '../../../../constants';
 
 
 export function isVisibleArea(x, visibility, renderedOffset) {
@@ -25,13 +25,18 @@ export function hadReachedEdge(state, direction) {
         stageVisibility: visibility,
     } = state;
     const maxVisibleX = visibility.startX + visibility.width;
-    if (direction === Directions.RIGHT &&  maxVisibleX  >=  stage[0].length - 1) {  
+    if (direction === Directions.RIGHT &&  maxVisibleX  >=  stage[0].length) {  
         return true;
     } else if(direction === Directions.LEFT && visibility.startX <= 0) {
-       
         return true;
     }
     return false;
+}
+
+export function setHerosEdge(hero, direction) {
+    if (direction === Directions.RIGHT) hero.platformEdge = PlatformEdge.RIGHT_EDGE;
+    if (direction === Directions.LEFT) hero.platformEdge = PlatformEdge.LEFT_EDGE;
+    if (direction === -1) hero.platformEdge = PlatformEdge.NO; 
 }
 /*
  * Scroll The Tiles 

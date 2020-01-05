@@ -4,10 +4,9 @@ function setupHero( { state, key} ) {
     let heroState = state[key];
     heroState.x = heroState.mapX * platform.unitSize;
     heroState.y = heroState.mapY * platform.unitSize;
-    console.log("");
-    console.log("");
-    console.log("Setup  Hero ");
-    console.log(heroState);
+    heroState.gravity = 1;
+    heroState.jumpSpeedStart = 20;
+
     return {
         ...state,
         hero: heroState,

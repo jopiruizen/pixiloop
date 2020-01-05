@@ -1,9 +1,17 @@
 import { Directions, Speed } from '../../../constants';
 
 export const initialState = {
-    unitWidth: 50,
-    unitHeight: 80,
-    stepSize: 50 / 10,
-    mapX: 6,
+    verticalSpeed: 0,
+    jumpSpeedStart: 50/2,
+    gravity: 2,
+    atGround: false,
+    platformEdge: -1,
+
+    width: 50,
+    height: 80,
+    stepSize: 50/10,
+    mapX: 3,
     mapY: 3,
+    x: 0,
+    y: 0,
 };

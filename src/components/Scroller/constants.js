@@ -16,6 +16,11 @@ export const Speed = {
     INSANE: 1,
 };
 
+export const PlatformEdge = {
+    NO: -1,
+    RIGHT_EDGE: 1,
+    LEFT_EDGE: 2,
+};
 
 export function randomRange (min, max) {
     return Math.floor( Math.random() * (max - min)) + min; 

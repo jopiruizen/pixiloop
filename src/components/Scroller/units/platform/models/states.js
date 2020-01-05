@@ -9,7 +9,7 @@ export const initialState = {
     stageVisibility: {
         startX: 4,
         startY: 0,
-        width: 16,
+        width: 15,
         height: 12,
     },
 

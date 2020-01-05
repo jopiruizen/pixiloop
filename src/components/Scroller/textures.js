@@ -5,7 +5,7 @@ export const TextureNames = {
     TILE: 'TILE',
     MASK: 'MASK',
     ROADBLOCK: 'ROADBLOCK',
-    FACE: 'SNAKE_NODE',
+    FACE: 'FACE',
 };
 
 const Textures = {

@@ -14,7 +14,7 @@ class GameController {
     init(container) {
         pixiloop.init({
             pixiSettings:  {
-                width: 800,
+                width: 750,
                 height: 600,
                 backgroundColor: 0xF1F1F1,
                 resolution: 1,
@@ -25,6 +25,7 @@ class GameController {
         this.initDisplays();
         pixiloop.setupGame();
         changeMode(Modes.PLAY);
+        this.platform.addChild(this.hero);
         pixiloop.start();
         window.addEventListener('keydown',this.handleKeyDown,false);
         window.addEventListener('keyup',this.handleKeyUp,false);
@@ -44,6 +45,8 @@ class GameController {
     initDisplays(){
         this.platform = new Platform();
         pixiloop.app.stage.addChild( this.platform);
+        this.hero = new Hero();
+        
     }   
 }
 

@@ -1,15 +1,25 @@
 import { Modes } from '../../../constants';
-import { scrollTiles , updateVisibleArea, hadReachedEdge } from './utility/platformScroll';
+import { scrollTiles , updateVisibleArea, hadReachedEdge ,setHerosEdge } from './utility/platformScroll';
 
 const updatePlatformState =  {
+
     mechanicsFunction: ( { state, key} ) => {
 
         const platformState = state[key];
         const keyState = state['keyPress'];
+        const heroState = state['hero'];
+
+        
 
         if (hadReachedEdge(platformState, keyState.direction)) {
-            return { changes: []}
+            setHerosEdge(heroState, keyState.direction);
+            return { state, changes: ['hero'] };
         }
+
+        if( heroState.atMiddleX === false ){
+            return { changes: [] };
+        }
+ 
         scrollTiles(platformState, keyState.direction);
         platformState.fullStepComplete = false;
         const absChange = Math.abs(platformState.stepChange);

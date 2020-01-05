@@ -77,16 +77,6 @@ class Platform extends PIXI.Container {
             } 
         }
     }
-
-    renderMap(map) {
-        for ( let i = 0; i < map.length; i++ ) {
-            for (let j = 0; j < map[i].length; j++) {
-                
-            }
-        }
-       
-    }
-
      
 }
 
