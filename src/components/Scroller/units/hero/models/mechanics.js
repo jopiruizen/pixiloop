@@ -5,8 +5,8 @@ import { getGameState, getDispatch } from '../../../../../pixiloop';
 
 const heroMove = {
     mechanicsFunction: ({state, key}) => {
+
         return {
-            state,
             changes: [],
         };
     },

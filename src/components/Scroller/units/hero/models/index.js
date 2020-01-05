@@ -1,13 +1,14 @@
-import { initialState , initialNodes} from './states';
+import { initialState } from './states';
 import mechanics from './mechanics';
 import dispatch from './dispatch';
+import setup from './setup'; /* can be removed or not */
 
 export default {
-    name: 'snake',
+    name: 'hero',
     state: { 
         ...initialState,
-        nodes: [...initialNodes],
     },
     mechanics,
     dispatch,
+    setup,
 };

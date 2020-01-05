@@ -1,8 +1,7 @@
-import world from './units/platform/models';
-import snake from './units/hero/models';
-
+import platform from './units/platform/models';
+import hero from './units/hero/models';
 
 export default {
-    world,
-    snake,
+    platform,
+    hero,
 }

@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
 import { registerDisplayAndState, unregisterDisplayAndState, useDispatch } from '../../../../pixiloop';
-import RoadBlock from './RoadBlock';
+import Tile from './Tile';
 import Textures from '../../textures';
 
-const WORLD_NAMESPACE = 'world';
-class World extends PIXI.Container {
+const WORLD_NAMESPACE = 'platform';
+class Platform extends PIXI.Container {
     constructor() {
         super();
         registerDisplayAndState(WORLD_NAMESPACE, this );
@@ -15,64 +15,79 @@ class World extends PIXI.Container {
         super.destroy(options);
     }
 
-    update({fullState, state, key}) {
+    update({ state }) {
         this.state = state;
-        this.showPelette();
+        if (!state.fullStepComplete) {
+            this.renderScroll();
+        } else {
+            this.renderVisibleArea();
+        }
+       
+    }
+
+    renderScroll(){
+        const  {
+            stage,
+            stageVisibility: visibility,
+            renderedOffset,
+        } = this.state;
+    
+        let maxVisibleX = visibility.startX + visibility.width + renderedOffset;
+        if (maxVisibleX >= stage[0].length-1) maxVisibleX = stage[0].length - 1;
+        let minVisibleX = visibility.startX - renderedOffset; 
+        if (minVisibleX <= 0) minVisibleX = 0;
+        for (let i = 0; i < stage.length; i++) {
+            for (let j = minVisibleX;  j <= maxVisibleX; j++) {
+                const data = stage[i][j];
+                const tile = this.tiles[i][j];
+                tile.x = data.x;
+                tile.y = data.y;
+            }
+        }
+    }
+
+    renderVisibleArea(){
+        const { stage } = this.state;
+        for( let i = 0; i < stage.length; i++ ) {
+            for( let j = 0; j < stage[i].length; j++ ) {
+                const data = stage[i][j];
+                let tile = this.tiles[i][j];
+                tile.visible = data.visible;
+                tile.x = data.x;
+                tile.y = data.y;
+            } 
+        }
     }
 
     setup(state) {
         this.state = state;
-        this.width = 12 * this.state.blockSize;
-        this.height = 12 * this.state.blockSize;
-        if( state && state.map) {
-            this.renderRoadBlocks(state.map);
+        this.tiles = [];    
+        this.setupTileMatrix();
+    }
+
+    setupTileMatrix(){
+        let stage = this.state.stage;
+        for( let i = 0; i < stage.length; i++ ) {
+            this.tiles[i] = [];
+            for( let j = 0; j < stage[i].length; j++ ) {
+                const tileData = stage[i][j];
+                let tile = new Tile(tileData);
+                this.tiles[i][j] = tile;
+                this.addChild(tile);
+            } 
         }
     }
 
-    renderRoadBlocks(map) {
-        this.roadBlocks = new PIXI.Container();
-        this.roadBlocks.width = this.width;
-        this.roadBlocks.height = this.height;
+    renderMap(map) {
         for ( let i = 0; i < map.length; i++ ) {
             for (let j = 0; j < map[i].length; j++) {
-                let isBlock = map[i][j];
-                this.renderBlockOrTitle(j,i, isBlock);
+                
             }
         }
-        console.log("ROadBlocks...", this.roadBlocks);
-        this.addChildAt(this.roadBlocks,0);
+       
     }
 
-    renderBlockOrTitle(x,y, isBlock){
-        let blockSize = 50;
-        if(this.state.blockSize) blockSize = this.state.blockSize;
-        let block = new PIXI.Sprite(Textures.TILE);
-        if( isBlock ) {
-            block = new RoadBlock();
-        }
-        block.width = this.blockSize;
-        block.height = this.blockSize;
-        block.x = x * blockSize;
-        block.y = y * blockSize;
-        block.width = blockSize;
-        block.height = blockSize;
-        this.roadBlocks.addChild(block);
-    }
-    
-    showPelette(){
-        if(!this.state.peletteShown) {
-            if (!this.pelette) {
-                this.pelette = new PIXI.Sprite(Textures.ROADBLOCK);
-                this.pelette.width = this.state.blockSize;
-                this.pelette.height = this.state.blockSize;
-                this.addChildAt(this.pelette,1);
-            }
-            this.pelette.x = this.state.blockSize * this.state.peletteX;
-            this.pelette.y = this.state.blockSize * this.state.peletteY;
-            const { world: { peletteIsShown }} = useDispatch();
-            peletteIsShown({peletteShown: true});
-        }
-    }
+     
 }
 
-export default World;
+export default Platform;

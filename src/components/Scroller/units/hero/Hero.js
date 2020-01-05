@@ -18,7 +18,9 @@ class Hero extends PIXI.Container {
 
     setup(state){
         this.state = state;
-      
+        this.face = new PIXI.Sprite(Textures.FACE)
+        this.addChild(this.face);
+         
     }
 
     update({state}) {

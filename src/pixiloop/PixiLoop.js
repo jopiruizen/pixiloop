@@ -16,12 +16,12 @@ class PixiLoop {
     reset() {
         this.mode = PixiLoopMode.DEFAULT;
         this.loopStarted = false;
-        this.setupFunc = null;
         this.mechanics = {};
         this.state = {};
         this.displays = {};
         this.dispatch = {};
         this.stateChanges = {};
+        this.setupFunc = {};
     }
 
     init( {pixiSettings, models}) {
@@ -36,12 +36,30 @@ class PixiLoop {
             }
             if( models[key].mechanics) this.mechanics[key] = models[key].mechanics;
             if( models[key].state) this.state[key] = models[key].state;
+            if( models[key].setup) this.setupFunc[key] = models[key].setup;
         }
     }
 
     setupGame(){
         console.log("pixiloop");
         console.log("Setup Games");
+        this.setupGameState();
+        this.setupDisplays();
+    }
+
+    setupGameState() {
+        const contextKeys =  Object.keys(this.setupFunc);
+        for( let contextKey of contextKeys) {
+            let setupKeys = Object.keys(this.setupFunc[contextKey]);
+            let context = this.setupFunc[contextKey];
+            for( let setupKey of setupKeys) {
+                const func = context[setupKey];
+                this.state = func( {state: this.state, key: contextKey} );
+            }
+        }
+    }
+
+    setupDisplays(){
         const keys = Object.keys(this.displays);
         for(let key of keys) {
             const display = this.displays[key];

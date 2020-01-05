@@ -1,9 +1,6 @@
-function peletteIsShown(state, {peletteShown = true}) {
-    
-}
- 
+import { popKeyPresses, pushKeyPresses } from './utility/keyPressDispatch';
 
 export default {
-    peletteIsShown,
-     
+    pushKeyPresses,
+    popKeyPresses,
 }

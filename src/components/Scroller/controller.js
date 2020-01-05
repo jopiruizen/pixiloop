@@ -5,10 +5,9 @@ import models from './models';
 import Platform from './units/platform';
 import Hero from './units/hero';
 import Textures from './textures';
-import RoadBlock  from './units/platform/RoadBlock';
 
 
-import { Modes, KeyCodesDirections } from './constants';
+import { Modes } from './constants';
 
 class GameController {
 
@@ -28,14 +27,23 @@ class GameController {
         changeMode(Modes.PLAY);
         pixiloop.start();
         window.addEventListener('keydown',this.handleKeyDown,false);
+        window.addEventListener('keyup',this.handleKeyUp,false);
     }
 
     handleKeyDown(event) {
-        const direction = KeyCodesDirections[event.keyCode.toString()];
+        const { platform : { pushKeyPresses } } = useDispatch();
+        pushKeyPresses({keyCode: event.keyCode});
     }
 
+    handleKeyUp(event) {
+        const { platform : { popKeyPresses } } = useDispatch();
+        popKeyPresses({keyCode: event.keyCode});
+    }
+
+
     initDisplays(){
-        console.log("INIT not Display...");
+        this.platform = new Platform();
+        pixiloop.app.stage.addChild( this.platform);
     }   
 }
 
