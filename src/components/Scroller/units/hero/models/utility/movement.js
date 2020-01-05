@@ -40,7 +40,7 @@ function jump( hero, platform, keyPress) {
         hero.jumping = false;
         hero.atGround = false;
         keyPress.actions['74'].actionDone = true;
-        deleteAction(keyPress,'74');
+       //deleteAction(keyPress,'74');
     }
 }
 
@@ -90,9 +90,6 @@ export function heroOnMotion( {hero, keyPress, platform} ) {
     if (keyPress.actions['74'] !== undefined &&
         !keyPress.actions['74'].actionDone &&
         hero.jumping === false) {
-        console.log("");
-        console.log("Setting Up for Jump");
-
         hero.verticalSpeed = -hero.jumpSpeedStart;
         hero.jumping = true;
     }

@@ -22,13 +22,13 @@ function popKeyAction( kState, keyCode) {
     if ( keyAction !== undefined ) {
         keyAction.keyUp = true;
         if( keyAction.actionDone === true ) {
-           delete kState[keyCode.toString()];
+           delete kState.actions[keyCode.toString()];
         }
     }
 }
 
 /*
- * The following function will register and unregister key presses and will be validate during the game loop cycle.®
+ * The following function will register and unregister key presses and will be validate during the game loop cycle.
  */ 
 
 export function pushKeyPresses (state, { keyCode }) {
