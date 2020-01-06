@@ -4,12 +4,12 @@ import { TileType } from '../../../platform/models/tiles';
 
 function moveRight(hero, platform) {
     hero.x += hero.stepSize; 
+    const maxPlatformWidth =  platform.stageVisibility.width * platform.unitSize;
+    if( hero.x + hero.width >= maxPlatformWidth) hero.x = maxPlatformWidth - hero.width; 
     let mapX = Math.floor( hero.x / platform.unitSize);
     let middleX = Math.floor(platform.stageVisibility.width / 2)
     hero.atMiddleX = false;
-
     if (hero.platformEdge === PlatformEdge.RIGHT_EDGE) return;
-
     if (mapX >= middleX) {
         hero.platformEdge = PlatformEdge.NO;
         hero.x = middleX * platform.unitSize;
@@ -19,6 +19,7 @@ function moveRight(hero, platform) {
 
 function moveLeft(hero, platform) {
     hero.x -= hero.stepSize;
+    if( hero.x <= 0) hero.x = 0;
     let mapX = Math.floor( hero.x / platform.unitSize);
     let middleX = Math.floor(platform.stageVisibility.width / 2);
     hero.atMiddleX = false;
@@ -44,19 +45,33 @@ function jump( hero, platform, keyPress) {
     }
 }
 
-function fall(hero, platform) {
+function hasGroundBelow(tile, tileLeft, tileRight, direction, xPosition, sensitivity ) {
+    console.log("");
+    console.log("hasGroundBelow()....");
+    console.log( tileLeft )
+    console.log( tile )
+    console.log( tileRight )
+    console.log(direction);
+    console.log(xPosition)
+    console.log(sensitivity);
+}   
+
+function fall(hero, platform, direction) {
     hero.verticalSpeed += hero.gravity;
     hero.y += hero.verticalSpeed;
+
+    const xPos = (hero.x + ( hero.width/2)) / platform.unitSize;
+    const stepSensitivity = (hero.x + ( hero.width/2)) % platform.unitSize;
+    const mapX = Math.floor(xPos) + platform.stageVisibility.startX;
     
-    const mapX = Math.floor((hero.x) / platform.unitSize) + platform.stageVisibility.startX;
     const mapY = Math.floor((hero.y + hero.height) / platform.unitSize);
     
     if( mapY < platform.stage.length) {
-        console.log("MapY: " , mapY , " Map X: ", mapX );
         const tileBelow = platform.stage[mapY][mapX];
+        const tileLeft = platform.stage[mapY] [mapX - 1];
+        const tileRight = platform.stage[mapY][mapX + 1];
+        hasGroundBelow(tileBelow, tileLeft, tileRight, direction, xPos, stepSensitivity)
         if (tileBelow.type === TileType.WALL) {
-            console.log(" Will Stop at MapY: " , mapY );
-            console.log(tileBelow);
             hero.atGround = true;
             hero.jumping = false;
             hero.y = tileBelow.y - hero.height;
@@ -94,13 +109,12 @@ export function heroOnMotion( {hero, keyPress, platform} ) {
         hero.jumping = true;
     }
 
-    
     if( hero.verticalSpeed < 0) {
         jump( hero, platform, keyPress);
     }
 
     if (!hero.atGround && !hero.jumping) {
-       fall(hero, platform)
+       fall(hero, platform, keyPress.direction)
        if (hero.atGround) deleteAction(keyPress,'74');
     }
 
