@@ -45,36 +45,48 @@ function jump( hero, platform, keyPress) {
     }
 }
 
-function hasGroundBelow(tile, tileLeft, tileRight, direction, xPosition, sensitivity ) {
+function hasGroundBelow(stage, mapX, mapY, direction, xPosition, sensitivity ) {
+    
+    let tileRight = stage[mapY][mapX];
+    let tileLeft = stage[mapY][mapX - 1];
+    
+
+    if (direction === Directions.RIGHT) {
+        tileLeft = tileRight;
+        tileRight = stage[mapY][mapX + 1];
+    }
     console.log("");
+    console.log("");
+    console.log("MapX: ", mapX, " MapY: ", mapY);
     console.log("hasGroundBelow()....");
-    console.log( tileLeft )
-    console.log( tile )
-    console.log( tileRight )
-    console.log(direction);
-    console.log(xPosition)
-    console.log(sensitivity);
+    console.log( "Tile Left: " , tileLeft )
+
+    console.log( "Tile Right: ", tileRight )
+    console.log( " Tile Direction: ", direction);
+    console.log( "xPOs:" , xPosition)
+    console.log( "Sensi" , sensitivity);
+    if ((tileLeft && tileLeft.type === TileType.WALL) || 
+        (tileRight && tileRight.type === TileType.WALL)) {
+        return true;
+    }
+    return false;
 }   
 
 function fall(hero, platform, direction) {
     hero.verticalSpeed += hero.gravity;
     hero.y += hero.verticalSpeed;
 
-    const xPos = (hero.x + ( hero.width/2)) / platform.unitSize;
+    const xPos = hero.x / platform.unitSize;
     const stepSensitivity = (hero.x + ( hero.width/2)) % platform.unitSize;
     const mapX = Math.floor(xPos) + platform.stageVisibility.startX;
-    
     const mapY = Math.floor((hero.y + hero.height) / platform.unitSize);
     
     if( mapY < platform.stage.length) {
-        const tileBelow = platform.stage[mapY][mapX];
-        const tileLeft = platform.stage[mapY] [mapX - 1];
-        const tileRight = platform.stage[mapY][mapX + 1];
-        hasGroundBelow(tileBelow, tileLeft, tileRight, direction, xPos, stepSensitivity)
-        if (tileBelow.type === TileType.WALL) {
+        const tileRight = platform.stage[mapY][mapX];
+        if ( hasGroundBelow( platform.stage, mapX, mapY, direction, xPos, stepSensitivity) ) {
             hero.atGround = true;
             hero.jumping = false;
-            hero.y = tileBelow.y - hero.height;
+            hero.y = tileRight.y - hero.height;
         }
 
     } else if(  mapY > platform.stage.length) {
