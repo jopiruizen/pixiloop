@@ -1,6 +1,6 @@
 import { Modes, Directions} from '../../../constants';
 
-import { heroOnMotion } from './utility/movement';
+import { characterMotion } from '../../commons/characterMotion';
 
 const heroMove = {
     mechanicsFunction: ({state, key}) => {
@@ -8,7 +8,7 @@ const heroMove = {
         let hero = state[key];
         let platform = state.platform;
         let keyPress = state.keyPress;
-        heroOnMotion( {hero, platform, keyPress} );
+        characterMotion( {hero, platform, keyPress} );
 
         return {
             state,
