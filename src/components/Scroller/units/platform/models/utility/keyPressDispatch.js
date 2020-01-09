@@ -47,6 +47,7 @@ export function popKeyPresses ( state, { keyCode }) {
     let kState = state['keyPress'];
     let keyType = KeyCodeTypes[keyCode.toString()];
     if( keyType === KeyTypes.DIRECTIONAL) {
+        kState.oldDirection = kState.direction;
         kState.direction = -1;
     } else if( keyType === KeyTypes.ACTION) {
        popKeyAction(kState,keyCode);

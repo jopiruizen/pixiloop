@@ -17,40 +17,19 @@ function shouldFall(hero, platform, direction ) {
  
 }
 
-function stopFallStraight(hero, platform) {
-
-}
-
-function stopFallLeft(hero, platform) {
-
-}
-
-function stopFallRight(hero, platform) {
-
-}
- 
-
-export function fall (hero, platform, direction) {
+export function fall (hero, platform, keyPress) {
     hero.verticalSpeed += hero.gravity;
     hero.y += hero.verticalSpeed;
-
-    const xPos = hero.x / platform.unitSize;
-    const mapX = Math.floor(xPos) + platform.stageVisibility.startX;
-    const mapY = Math.floor((hero.y + hero.height) / platform.unitSize);
     
-    if( mapY < platform.stage.length) {
-        const tileRight = platform.stage[mapY][mapX];
-        if ( hasGroundBelow( platform.stage, mapX, mapX + 1 , mapY) ) {
+    if( hero.y < platform.computedSize.height) {
+        const [hasGround, tile] = hasGroundBelow(platform, hero, keyPress);
+        if (hasGround) {
+            console.log("has Ground...");
             hero.atGround = true;
             hero.jumping = false;
-            hero.y = tileRight.y - hero.height;
+            hero.y = tile.y - hero.height;
             hero.verticalSpeed = 0;
         }
-
-    } else if(  mapY > platform.stage.length) {
-        //fall out of the screen...
-        hero.verticalSpeed = 0;
-        hero.atGround = true;
-    }
+    } 
 }
 

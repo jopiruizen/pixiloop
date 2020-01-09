@@ -33,7 +33,7 @@ export function characterMotion( {hero, keyPress, platform} ) {
     }
 
     if (!hero.atGround && !hero.jumping) {
-       fall(hero, platform, keyPress.direction)
+       fall(hero, platform, keyPress)
        if (hero.atGround) deleteAction(keyPress,'74');
     }
 

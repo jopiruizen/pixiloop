@@ -1,10 +1,17 @@
 import { Directions, KeyActions , PlatformEdge } from '../../constants';
-import { TileType } from '../platform/models/tiles';
+
+import  { hasWallInFront } from './validations';
 
 export function moveRight(hero, platform) {
-    hero.x += hero.stepSize; 
+    hero.x += hero.stepSize;
     const maxPlatformWidth =  platform.stageVisibility.width * platform.unitSize;
-    if( hero.x + hero.width >= maxPlatformWidth) hero.x = maxPlatformWidth - hero.width; 
+
+    const [hasWall, tile] = hasWallInFront(platform, hero, Directions.RIGHT);
+    if (hasWall) {
+        hero.x = tile.x - hero.width;
+    }
+
+    if( hero.x + hero.width >= maxPlatformWidth) hero.x = maxPlatformWidth - hero.width;
     let mapX = Math.floor( hero.x / platform.unitSize);
     let middleX = Math.floor(platform.stageVisibility.width / 2)
 
@@ -20,6 +27,11 @@ export function moveRight(hero, platform) {
 
 export function moveLeft(hero, platform) {
     hero.x -= hero.stepSize;
+
+    const [hasWall, tile] = hasWallInFront(platform, hero, Directions.LEFT);
+    if (hasWall) {
+        hero.x = tile.x + hero.width;
+    }
     if( hero.x <= 0) hero.x = 0;
     let mapX = Math.floor( hero.x / platform.unitSize);
     let middleX = Math.floor(platform.stageVisibility.width / 2);
