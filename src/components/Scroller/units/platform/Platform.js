@@ -42,7 +42,7 @@ class Platform extends PIXI.Container {
                 const tile = this.tiles[i][j];
                 tile.x = data.x;
                 tile.y = data.y;
-                tile.updateNumber(data.mapX);
+                tile.updateNumber(`${data.mapX} - ${data.mapY}` );
             }
         }
     }

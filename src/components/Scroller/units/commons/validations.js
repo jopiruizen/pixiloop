@@ -8,12 +8,11 @@ export function isWall(tile) {
 }
 
 export function hasGroundBelow (platform, hero, keyPress) {
+    
     const bounds = charTileBounds( platform, hero, keyPress);
-
     const { direction } = keyPress;
 
     if (hero.atExactTile && isWall(bounds.bottomLeft)) {
-        console.log("at exact Tile..., ", bounds.bottomLeft);
         return [ true , bounds.bottomLeft];
     }
 
@@ -36,7 +35,7 @@ export function hasGroundBelow (platform, hero, keyPress) {
         }
     }
 
-    return [];  
+    return [false, null];  
 }
 
 function tile(stage, mapY, mapX){
@@ -46,25 +45,24 @@ function tile(stage, mapY, mapX){
     return undefined;
 } 
 
-export function charTileBounds (platform,hero, { direction, oldDirection}) {
+export function charTileBounds (platform,hero, { direction, oldDirection} , withOffset = true) {
     const stage = platform.stage;
-    let xLeft = hero.x  / platform.unitSize;
-    let xRight = (hero.x + hero.width) /  platform.unitSize;
-    
+    let offsetValue = (withOffset ? hero.boundsOffset : 0);
+    let xLeft = (hero.x + offsetValue) / platform.unitSize;
+    let xRight = (hero.x + hero.width - offsetValue) /  platform.unitSize;
 
     const mapY = Math.floor((hero.y + hero.height) / platform.unitSize);
     let mapXLeft = Math.floor(xLeft) + platform.stageVisibility.startX;
     let mapXRight = Math.floor(xRight) + platform.stageVisibility.startX;
 
-
-    if(hero.atMiddleX && direction === -1 && oldDirection === Directions.LEFT) {
+    if (hero.atMiddleX && direction === -1 && oldDirection === Directions.LEFT) {
         mapXLeft -= 1;
         mapXRight -= 1;
     }
 
     const bottomLeft = tile(stage, mapY, mapXLeft);
     
-    if (hero.x === bottomLeft.x) {
+    if (bottomLeft && hero.x === bottomLeft.x) {
         hero.atExactTile = true;
     } else {
         hero.atExactTile = false;
@@ -84,7 +82,7 @@ export function charTileBounds (platform,hero, { direction, oldDirection}) {
 }
 
 export function hasWallInFront(platform, hero, direction) {
-    const bounds = charTileBounds( platform, hero, direction);
+    const bounds = charTileBounds( platform, hero, {direction}, false);
 
     if (direction === Directions.LEFT) {
         if( isWall(bounds.midLowerLeft)  || isWall(bounds.midUpperLeft) ){
@@ -99,5 +97,4 @@ export function hasWallInFront(platform, hero, direction) {
     }
     return [false, null];
 }
-
-
+ 

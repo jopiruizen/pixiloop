@@ -1,8 +1,9 @@
 import { Directions, KeyActions , PlatformEdge } from '../../constants';
 
-import  { hasWallInFront } from './validations';
+import { hasWallInFront } from './validations';
+import { validateFall } from './fall';
 
-export function moveRight(hero, platform) {
+export function moveRight(hero, platform, keyPress) {
     hero.x += hero.stepSize;
     const maxPlatformWidth =  platform.stageVisibility.width * platform.unitSize;
 
@@ -16,7 +17,7 @@ export function moveRight(hero, platform) {
     let middleX = Math.floor(platform.stageVisibility.width / 2)
 
     hero.atMiddleX = false;
-    //shouldFall(hero, platform, Directions.RIGHT);
+    validateFall(hero, platform, keyPress);
     if (hero.platformEdge === PlatformEdge.RIGHT_EDGE) return;
     if (mapX >= middleX) {
         hero.platformEdge = PlatformEdge.NO;
@@ -25,7 +26,7 @@ export function moveRight(hero, platform) {
     }   
 }
 
-export function moveLeft(hero, platform) {
+export function moveLeft(hero, platform, keyPress) {
     hero.x -= hero.stepSize;
 
     const [hasWall, tile] = hasWallInFront(platform, hero, Directions.LEFT);
@@ -36,7 +37,7 @@ export function moveLeft(hero, platform) {
     let mapX = Math.floor( hero.x / platform.unitSize);
     let middleX = Math.floor(platform.stageVisibility.width / 2);
     hero.atMiddleX = false;
-    //shouldFall(hero, platform, Directions.LEFT);
+    validateFall(hero, platform, keyPress);
     if (hero.platformEdge === PlatformEdge.LEFT_EDGE) return;
     if (mapX < middleX){
         hero.platformEdge = PlatformEdge.NO;

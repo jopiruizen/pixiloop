@@ -5,7 +5,6 @@ import {
     KeyActions,
 } from '../../../../constants';
 
-
 function pushKeyAction(kState, keyCode){
     let keyAction = kState.actions[keyCode.toString()]; 
     if ( keyAction === undefined || keyAction === null) {

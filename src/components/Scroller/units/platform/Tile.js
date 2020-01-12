@@ -31,7 +31,7 @@ class Tile extends PIXI.Container {
     }
 
     updateNumber(number){
-       // this.number.text = `${number}`;
+      // this.number.text = `${number}`;
     }
 }
 export default Tile;

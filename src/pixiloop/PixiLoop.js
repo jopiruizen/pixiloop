@@ -41,8 +41,6 @@ class PixiLoop {
     }
 
     setupGame(){
-        console.log("pixiloop");
-        console.log("Setup Games");
         this.setupGameState();
         this.setupDisplays();
     }
