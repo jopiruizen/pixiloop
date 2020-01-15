@@ -4,7 +4,7 @@ import dispatch from './dispatch';
 import setup from './setup'; /* can be removed or not */
 
 export default {
-    name: 'hero',
+    name: 'boss',
     state: { 
         ...initialState,
     },

@@ -3,7 +3,7 @@ import { Directions, Speed } from '../../../constants';
 export const initialState = {
     verticalSpeed: 0,
     atExactTile: false,
-    jumpSpeedStart: 20,
+    jumpSpeedStart: 10,
     gravity: 2,
     atGround: false,
     platformEdge: -1,

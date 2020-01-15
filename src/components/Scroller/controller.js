@@ -4,6 +4,7 @@ import pixiloop, { changeMode, useDispatch } from '../../pixiloop/';
 import models from './models';
 import Platform from './units/platform';
 import Hero from './units/hero';
+import Boss from './units/boss';
 import Textures from './textures';
 
 
@@ -26,6 +27,7 @@ class GameController {
         pixiloop.setupGame();
         changeMode(Modes.PLAY);
         this.platform.addChild(this.hero);
+        this.platform.addChild(this.boss);
         pixiloop.start();
         window.addEventListener('keydown',this.handleKeyDown,false);
         window.addEventListener('keyup',this.handleKeyUp,false);
@@ -46,6 +48,7 @@ class GameController {
         this.platform = new Platform();
         pixiloop.app.stage.addChild( this.platform);
         this.hero = new Hero();
+        this.boss = new Boss();
         
     }   
 }

@@ -1,14 +1,15 @@
 import { Modes, Directions} from '../../../constants';
 
-import { characterMotion } from '../../commons/characterMotion';
+import { bossMoves } from '../../commons/bossMoves';
 
-const heroMove = {
+const bossActions = {
+
     mechanicsFunction: ({state, key}) => {
 
-        let hero = state[key];
+        let boss = state[key];
         let platform = state.platform;
-        let keyPress = state.keyPress;
-        characterMotion( {hero, platform, keyPress} );
+        
+        bossMoves( {boss, platform} ); 
 
         return {
             state,
@@ -19,5 +20,5 @@ const heroMove = {
 };
 
 export default {
-    heroMove,
+    bossActions,
 }

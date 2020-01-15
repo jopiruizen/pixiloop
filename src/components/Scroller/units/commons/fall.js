@@ -50,7 +50,13 @@ export function fall (hero, platform, keyPress) {
 export function stopFalling(hero, platform, keyPress){
     if( hero.y < platform.computedSize.height) {
         const [hasGround, tile] = hasGroundBelow(platform, hero, keyPress);
-        if (hasGround) {
+        
+        let otherFallCondition = true;
+        if ( hero.fallFunc && typeof hero.fallFunc === 'function') {
+            otherFallCondition = hero.fallFunc({hero, platform, keyPress});
+        }
+        
+        if (hasGround && otherFallCondition ) {
             hero.atGround = true;
             hero.falling = false;
             hero.jumping = false;

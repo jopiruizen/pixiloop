@@ -45,3 +45,19 @@ export function moveLeft(hero, platform, keyPress) {
         hero.atMiddleX = true;
     }
 }
+
+export function charMoveLeft(char, platform) {
+    char.x -= char.stepSize;
+    const [hasWall, tile] = hasWallInFront(platform, char, Directions.LEFT);
+    if (hasWall) {
+        char.x = tile.x + char.width;
+    }
+}
+
+export function charMoveRight(char, platform) {
+    char.x += char.stepSize;
+    const [hasWall, tile] = hasWallInFront(platform, char, Directions.RIGHT);
+    if (hasWall) {
+        char.x = tile.x - char.width;
+    }
+}

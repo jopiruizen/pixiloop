@@ -59,8 +59,12 @@ class PixiLoop {
 
     setupDisplays(){
         const keys = Object.keys(this.displays);
+        console.log("");
+        console.log("Setup Displays....");
+        
         for(let key of keys) {
             const display = this.displays[key];
+            console.log("Setup Display: ", key , " Display: ", display);
             if (display.setup && 
                 typeof display.setup === 'function' 
                 && this.state[key]) {

@@ -8,7 +8,7 @@ const heroMove = {
         let hero = state[key];
         let platform = state.platform;
         let keyPress = state.keyPress;
-        characterMotion( {hero, platform, keyPress} );
+        characterMotion( {hero, platform, keyPress} ); 
 
         return {
             state,

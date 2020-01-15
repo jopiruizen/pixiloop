@@ -4,7 +4,7 @@ import Textures from '../../textures';
 
 const NAMESPACE = 'boss';
 
-class Hero extends PIXI.Container {
+class Boss extends PIXI.Container {
 
     constructor(){
         super();
@@ -26,6 +26,7 @@ class Hero extends PIXI.Container {
     }
 
     setupSkin() {
+        console.log("Setupskin()");
         this.skin = new PIXI.Sprite(Textures.BOSS)
         this.skin.x = 0;
         this.skin.y = 0;
@@ -43,4 +44,4 @@ class Hero extends PIXI.Container {
 
 }
 
-export default Hero;
+export default Boss;
