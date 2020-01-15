@@ -1,0 +1,7 @@
+{
+    "companies": [
+        { "business_id": "123", "name": "Pretty Good", "address": "#07-06 Ness, 38 Lorong 32, Geylang 398298" },
+        { "business_id": "124", "name": "KFC", "address": "#14-01 One Raffles Place, Raffles Place" },
+        { "business_id": "125", "name": "Little Home", "address": "B4 L13 Daffodil Street Camella Home Putatan Muntinlupa City, Philippines" }
+    ]
+}
