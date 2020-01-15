@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "de3cfd31f8611a240b9414f299503d30",
+    "revision": "b8a5d549b1a45163e720db01a4a38138",
     "url": "/pixiloop/index.html"
   },
   {
-    "revision": "d29a50b8008dc956b7c8",
+    "revision": "e7d62cc69ba71feab824",
     "url": "/pixiloop/static/css/main.3b22b524.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pixiloop/static/js/2.28791510.chunk.js"
   },
   {
-    "revision": "d29a50b8008dc956b7c8",
-    "url": "/pixiloop/static/js/main.2ecbbf25.chunk.js"
+    "revision": "e7d62cc69ba71feab824",
+    "url": "/pixiloop/static/js/main.c4a1a305.chunk.js"
   },
   {
     "revision": "1ce3e19e2a40a2175f79",
