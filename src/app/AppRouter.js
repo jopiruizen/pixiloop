@@ -9,7 +9,7 @@ const AppRouter = (props) => (
     <Switch>
         <Route path={Routes.SCROLLER} component={Scroller} />
         <Route path={Routes.SNAKE} component={Snake} />
-        <Route path={Routes.GAME} component={Snake} />
+        <Route path={Routes.GAME} component={Scroller} />
       
     </Switch>
   </BrowserRouter>
