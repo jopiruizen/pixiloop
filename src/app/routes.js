@@ -1,7 +1,8 @@
 const Routes = {
     GAME: '/',
-    SNAKE: '/snake',
     SCROLLER: '/scroller',
+    SNAKE: '/snake',
+   
 }
 
 export default Routes;
